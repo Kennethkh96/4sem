@@ -53,7 +53,7 @@
         function handleSwipeEnd(e) {
             //console.log(e);
             console.log("end");
-            if(e.changedTouches[0].clientX > (bodyWidth/3)){
+            if(e.changedTouches[0].clientX > (bodyWidth/4)){
                 //Make animation
                 e.target.style.webkitTransition = "ease 0.4s";
                 e.target.style.left = bodyWidth;
@@ -63,7 +63,7 @@
                     removeElm(e.target.id);
                 }, 400);
             }else{
-                e.target.style.left = xStartPos;
+                e.target.style.left = 0;
             }
         }
 
