@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+        <style>
+            body{
+                margin:10px;
+            }
+            ul{
+                list-style-type: none;
+                display:inline;
+            }
+            li{
+                overflow: hidden;
+            }
+            .elm{
+                padding: 3px;
+                background: #f1f1f1;
+                border: 1px solid #ccc;
+                position: relative;
+            }
+        </style>
+</head>
+<body>
+    <ul id="elms">
+        <li><p class="elm" id="helloText">Element 1</p></li>
+        <li><p class="elm" id="helloText2">Element 2</p></li>
+        <li><p class="elm" id="helloText3">Element 3</p></li>
+    </ul>
+    <script>
+        let bodyWidth = document.body.clientWidth;
+        let elements = document.getElementsByClassName("elm");
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].addEventListener("touchstart", handleStart);
+            elements[i].addEventListener("touchmove", handleSwipe);
+            elements[i].addEventListener("touchend", handleSwipeEnd)
+        }
+       
+        function handleStart(e) {
+            console.log(e);
+            console.log(e.target);
+            //e.target.parentNode.removeChild(e.target);
+        }
+
+        function handleSwipe(e) {
+            //console.log(e);
+            console.log("swipe");
+            e.target.style.left = e.touches[0].clientX;
+        }
+
+        function handleSwipeEnd(e) {
+            //console.log(e);
+            console.log("end");
+            if(e.changedTouches[0].clientX > (bodyWidth/3)){
+                //Make animation
+                e.target.style.webkitTransition = "ease 0.4s";
+                e.target.style.left = bodyWidth;
+                e.target.style.opacity = 0.1;
+                e.target.style.marginBottom = -34;
+                setTimeout(function() {
+                    removeElm(e.target.id);
+                }, 400);
+            }else{
+                e.target.style.left = xStartPos;
+            }
+        }
+
+        function removeElm(elm)
+        {
+            elm.parentNode.removeChild(elm);
+        }
+    </script>
+</body>
+</html>
